@@ -9,7 +9,7 @@ import WdCountdown from '@/components/WdCountdown.vue'
 
 <template>
   <!-- Hero -->
-  <WdHero bg-url="https://i.ibb.co/27R2hdFh/hero.jpg" :overlay-opacity="0.45">
+  <WdHero bg-url="./hero.jpg" :overlay-opacity="0.45">
     <div class="flex flex-col items-center gap-6 text-cream text-center">
       <p class="font-sans text-xs tracking-[0.4em] uppercase text-cream/70">We Invite You to Celebrate</p>
       <h1 class="font-display text-6xl md:text-8xl font-light tracking-wider leading-none">
