@@ -4,23 +4,25 @@ import WdDivider from '@/components/WdDivider.vue'
 import WdSectionTitle from '@/components/WdSectionTitle.vue'
 import WdInfoItem from '@/components/WdInfoItem.vue'
 import WdButton from '@/components/WdButton.vue'
+import WdCountdown from '@/components/WdCountdown.vue'
 </script>
 
 <template>
   <!-- Hero -->
-  <WdHero :overlay-opacity="0.45">
+  <WdHero bg-url="https://i.ibb.co/27R2hdFh/hero.jpg" :overlay-opacity="0.45">
     <div class="flex flex-col items-center gap-6 text-cream text-center">
       <p class="font-sans text-xs tracking-[0.4em] uppercase text-cream/70">We Invite You to Celebrate</p>
       <h1 class="font-display text-6xl md:text-8xl font-light tracking-wider leading-none">
-        林昇暉
+        Nathan
         <span class="block text-gold text-4xl md:text-5xl my-2">&amp;</span>
-        李淑因
+        Alice
       </h1>
       <p class="font-sans text-sm tracking-[0.3em] text-cream/80 uppercase mt-2">
         民國一一五年十月十日
       </p>
       <WdDivider ornament />
       <p class="font-serif text-base text-cream/70">牛耳藝術渡假村 · 南投縣埔里鎮</p>
+      <WdCountdown />
     </div>
   </WdHero>
 

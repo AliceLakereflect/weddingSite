@@ -27,7 +27,7 @@ function closeMenu() {
         class="font-display text-xl text-charcoal tracking-wider hover:text-wood-600 transition-colors"
         @click="closeMenu"
       >
-        林昇暉 <span class="text-gold mx-1">&</span> 李淑因
+        Nathan <span class="text-gold mx-1">&</span> Alice
       </RouterLink>
 
       <!-- Desktop nav -->
