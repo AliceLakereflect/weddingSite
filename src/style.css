@@ -1,0 +1,24 @@
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream font-serif text-charcoal;
+  }
+}
+
+@layer components {
+  .nav-link {
+    @apply text-sm font-sans font-light tracking-widest uppercase transition-colors duration-200;
+  }
+  .section-wrapper {
+    @apply max-w-5xl mx-auto px-6 py-16;
+  }
+}
