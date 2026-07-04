@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   label: string
-  value: string
+  value?: string
   icon?: string
 }>()
 </script>
@@ -14,6 +14,8 @@ defineProps<{
       </slot>
     </div>
     <p class="font-sans text-xs text-wood-400 tracking-widest uppercase">{{ label }}</p>
-    <p class="font-serif text-base text-charcoal leading-snug">{{ value }}</p>
+    <div class="font-serif text-base text-charcoal leading-snug">
+      <slot>{{ value }}</slot>
+    </div>
   </div>
 </template>

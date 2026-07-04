@@ -1,0 +1,19 @@
+{
+  "dateZh": "民國一一五年十月十日",
+  "dateGregorian": "民國115年10月10日（六）",
+  "dateLunar": "農曆丙午年九月初一",
+  "countdownTarget": "2026-10-10T04:00:00Z",
+  "checkinTime": "12:00",
+  "startTime": "12:30",
+  "venue": "牛耳藝術渡假村",
+  "city": "南投縣埔里鎮",
+  "address": "545 南投縣埔里鎮中山路四掘1號",
+  "transportation": [
+    { "title": "🚗 開車", "detail": "國道六號（愛蘭交流道下）約5分鐘即達。" },
+    { "title": "🅿️ 停車", "detail": "園區內備有大型專屬免費停車場。" },
+    { "title": "🚌 大眾靈輸", "detail": "高鐵台中烏日站（5號出口）轉乘「南投客運 6670 路」，於「牛耳石雕公園」站下車直達。" }
+  ],
+  "mapsUrl": "https://maps.google.com/?q=牛耳藝術渡假村",
+  "copyright": "© 2026 昇暉 & 淑因 版權所有。Copilot, Claude聯合婚禮網頁製作。",
+  "footerText": "感謝歲月裡有您的關懷與期許。\n在這個充滿喜慶的日子裡，期盼能與您共享這份最真摯的幸福時光。"
+}

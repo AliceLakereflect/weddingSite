@@ -1,8 +1,12 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { useWeddingConfig } from '@/composables/useWeddingConfig'
 
-// 2026-10-10 12:00:00 UTC+8 = 2026-10-10T04:00:00Z
-const TARGET = new Date('2026-10-10T04:00:00Z').getTime()
+const config = useWeddingConfig()
+const TARGET = computed(() => {
+  const t = config.value?.countdownTarget
+  return t ? new Date(t).getTime() : Infinity
+})
 
 const now = ref(Date.now())
 let timer: ReturnType<typeof setInterval>
@@ -12,7 +16,7 @@ onMounted(() => {
 })
 onUnmounted(() => clearInterval(timer))
 
-const remaining = computed(() => Math.max(0, TARGET - now.value))
+const remaining = computed(() => Math.max(0, TARGET.value - now.value))
 const done = computed(() => remaining.value === 0)
 
 const days = computed(() => Math.floor(remaining.value / 86_400_000))
