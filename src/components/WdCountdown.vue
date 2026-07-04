@@ -42,7 +42,8 @@ const units = computed(() => [
         <!-- Number -->
         <div
           class="relative w-16 h-16 md:w-20 md:h-20 flex items-center justify-center
-                 border border-cream/25 bg-charcoal/30 backdrop-blur-sm overflow-hidden"
+                 overflow-hidden backdrop-blur-sm"
+          style="background-color: rgba(212,184,150,0.18); border: 1px solid rgba(212,184,150,0.55);"
         >
           <!-- Subtle top sheen -->
           <div class="absolute inset-x-0 top-0 h-1/2 bg-white/5 pointer-events-none" />

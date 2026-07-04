@@ -14,7 +14,7 @@ import WdCountdown from '@/components/WdCountdown.vue'
       <p class="font-sans text-xs tracking-[0.4em] uppercase text-cream/70">We Invite You to Celebrate</p>
       <h1 class="font-display text-6xl md:text-8xl font-light tracking-wider leading-none">
         Nathan
-        <span class="block text-gold text-4xl md:text-5xl my-2">&amp;</span>
+        <span class="block text-champagne text-4xl md:text-5xl my-2">&amp;</span>
         Alice
       </h1>
       <p class="font-sans text-sm tracking-[0.3em] text-cream/80 uppercase mt-2">
@@ -39,7 +39,7 @@ import WdCountdown from '@/components/WdCountdown.vue'
           </svg>
         </template>
       </WdInfoItem>
-      <WdInfoItem label="時間" value="12:00 入席　12:30 準時開席">
+      <WdInfoItem label="時間" value="12:00 入席 12:30 準時開席">
         <template #icon>
           <svg class="w-7 h-7 text-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"

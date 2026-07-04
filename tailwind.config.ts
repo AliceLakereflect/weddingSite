@@ -32,6 +32,7 @@ export default {
         cream: '#faf8f3',
         charcoal: '#2d2926',
         gold: '#c9a84c',
+        champagne: '#d4b896',
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'serif'],
