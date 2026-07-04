@@ -16,6 +16,7 @@ const router = createRouter({
     ...(features.rsvp
       ? [{ path: '/rsvp', component: () => import('@/views/RsvpView.vue') }]
       : []),
+    { path: '/thankyou', component: () => import('@/views/ThankYouView.vue') },
     { path: '/:pathMatch(.*)*', redirect: '/' },
   ],
 })

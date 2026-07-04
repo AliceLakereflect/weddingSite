@@ -16,8 +16,13 @@ export interface WeddingConfig {
   city: string
   address: string
   transportation: TransportItem[]
-  mapsUrl: string,
-  copyright: string,
+  mapsUrl: string
+  tallyFormId: string
+  thankYouMessage1: string
+  thankYouMessage2: string
+  thankYouMessage3: string
+  thankYouGreeting: string
+  copyright: string
   footerText: string
 }
 

@@ -29,6 +29,24 @@ const config = useWeddingConfig()
     </div>
   </WdHero>
 
+  <!-- RSVP CTA -->
+  <section class="section-wrapper">
+    <div class="max-w-xl mx-auto px-6 flex flex-col items-center gap-6">
+      <p class="font-display text-xl text-charcoal font-light">期待您的蒞臨</p>
+      <div class="h-px w-12 bg-gold/50" />
+      <p class="font-sans text-sm text-wood-400 tracking-wide leading-relaxed">
+        請於婚禮前填寫出席回覆，讓我們為您做好準備
+      </p>
+      <RouterLink to="/rsvp">
+        <WdButton variant="primary" size="lg" class="!px-16 !py-5 !text-base mt-2">
+          線上回覆出席 &nbsp;RSVP
+        </WdButton>
+      </RouterLink>
+    </div>
+  </section>
+  
+  <WdDivider ornament />
+
   <!-- Parents section -->
   <section class="section-wrapper">
     <WdSectionTitle title="婚宴主人" subtitle="Hosted By" center />
@@ -49,7 +67,7 @@ const config = useWeddingConfig()
   <WdDivider ornament />
 
   <!-- Wedding Info Section -->
-  <section id="wedding-info" class="section-wrapper pt-0">
+  <section id="wedding-info" class="section-wrapper">
     <WdSectionTitle title="婚禮資訊" subtitle="Wedding Details" center />
 
     <div class="mt-12 grid grid-cols-2 gap-0 border border-wood-100 divide-x divide-wood-100">
@@ -120,5 +138,5 @@ const config = useWeddingConfig()
         </div>
       </div>
     </div>
-  </section>  
+  </section>
 </template>
