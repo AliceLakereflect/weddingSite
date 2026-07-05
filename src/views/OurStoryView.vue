@@ -35,7 +35,7 @@ const timeline = [
           :class="i % 2 === 1 ? 'md:flex-row-reverse' : ''"
         >
           <div class="flex-1 flex flex-col items-center md:items-end" :class="i % 2 === 1 ? 'md:items-start' : ''">
-            <span class="font-sans text-xs text-gold tracking-widest uppercase mb-2">{{ item.year }}</span>
+            <span class="font-swei text-xs text-gold tracking-widest uppercase mb-2">{{ item.year }}</span>
             <h3 class="font-display text-2xl text-charcoal">{{ item.title }}</h3>
             <p class="mt-3 font-serif text-sm text-wood-600 leading-relaxed max-w-xs" :class="i % 2 === 1 ? 'md:text-left' : 'md:text-right'">
               {{ item.desc }}

@@ -56,7 +56,7 @@ const units = computed(() => [
           </span>
         </div>
         <!-- Label -->
-        <span class="font-sans text-[10px] tracking-widest text-cream/60 uppercase">
+        <span class="font-swei text-[10px] tracking-widest text-cream/60 uppercase">
           {{ unit.labelEn }}
         </span>
       </div>

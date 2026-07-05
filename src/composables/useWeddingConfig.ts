@@ -6,6 +6,8 @@ export interface TransportItem {
 }
 
 export interface WeddingConfig {
+  bridegroomTitle: string
+  brideTitle: string
   dateZh: string
   dateGregorian: string
   dateLunar: string

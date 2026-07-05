@@ -2,9 +2,11 @@
 import { ref } from 'vue'
 import { useRoute, RouterLink } from 'vue-router'
 import { features } from '@/config/features'
+import { useWeddingConfig } from '@/composables/useWeddingConfig'
 
 const route = useRoute()
 const menuOpen = ref(false)
+const config = useWeddingConfig()
 
 const navLinks = [
   { to: '/', label: 'HOME' },
@@ -24,10 +26,10 @@ function closeMenu() {
       <!-- Logo / couple name -->
       <RouterLink
         to="/"
-        class="font-display text-xl text-charcoal tracking-wider hover:text-wood-600 transition-colors"
+        class="font-swei text-xl text-charcoal tracking-wider hover:text-wood-600 transition-colors"
         @click="closeMenu"
       >
-        Nathan <span class="text-gold mx-1">&</span> Alice
+        {{ config?.bridegroomTitle }} <span class="text-gold mx-1">&</span> {{ config?.brideTitle }}
       </RouterLink>
 
       <!-- Desktop nav -->

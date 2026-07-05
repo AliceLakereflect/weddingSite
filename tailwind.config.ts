@@ -36,6 +36,8 @@ export default {
       },
       fontFamily: {
         display: ['"Cormorant Garamond"', 'serif'],
+        chenYuluoyan: ['"ChenYuluoyan"'],
+        swei: ['"Swei"'],
         serif: ['"Noto Serif TC"', 'serif'],
         sans: ['"Noto Sans TC"', 'sans-serif'],
       },

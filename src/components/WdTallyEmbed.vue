@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted } from 'vue'
 
 const props = defineProps<{
   formId: string
@@ -8,17 +8,6 @@ const props = defineProps<{
   hideTitle?: boolean
 }>()
 
-const emit = defineEmits<{ submitted: [] }>()
-
-function onMessage(e: MessageEvent) {
-  if (!e.data) return
-  // Tally sends either { type: 'tally-form-submitted' } or { isTally: true, type: 'form-submit' }
-  const isSubmit =
-    e.data.type === 'tally-form-submitted' ||
-    (e.data.isTally === true && e.data.type === 'form-submit')
-  if (isSubmit) emit('submitted')
-}
-
 onMounted(() => {
   if (!document.querySelector('script[src="https://tally.so/widgets/embed.js"]')) {
     const script = document.createElement('script')
@@ -26,11 +15,6 @@ onMounted(() => {
     script.async = true
     document.head.appendChild(script)
   }
-  window.addEventListener('message', onMessage)
-})
-
-onUnmounted(() => {
-  window.removeEventListener('message', onMessage)
 })
 </script>
 

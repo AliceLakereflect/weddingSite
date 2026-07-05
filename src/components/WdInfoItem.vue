@@ -13,7 +13,7 @@ defineProps<{
         <span class="text-2xl text-gold">{{ icon }}</span>
       </slot>
     </div>
-    <p class="font-sans text-xs text-wood-400 tracking-widest uppercase">{{ label }}</p>
+    <p class="font-swei text-sm text-wood-400 tracking-widest uppercase">{{ label }}</p>
     <div class="font-serif text-base text-charcoal leading-snug">
       <slot>{{ value }}</slot>
     </div>

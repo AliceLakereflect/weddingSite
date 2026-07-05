@@ -34,21 +34,21 @@ onUnmounted(() => clearInterval(timer))
     <div class="absolute inset-0 bg-black/15" />
 
     <!-- Top-left: thankYouMessage -->
-    <div class="absolute top-48 left-8 md:top-36 md:left-14 max-w-sm md:max-w-lg ml-16">
+    <div class="absolute top-36 left-8 md:top-36 md:left-24 max-w-sm md:max-w-lg">
       <p
-        class="font-display text-cream text-xl md:text-4xl p-4 drop-shadow-md whitespace-pre-line"
+        class="font-swei text-cream text-2xl md:text-4xl p-4 drop-shadow-md whitespace-pre-line"
         style="text-shadow: 0 1px 6px rgba(0,0,0,0.45)"
       >
         {{ config?.thankYouMessage1 }}
       </p>
       <p
-        class="font-display text-cream text-xl md:text-2xl p-4 l drop-shadow-md whitespace-pre-line"
+        class="font-swei text-cream text-xl md:text-2xl p-4 l drop-shadow-md whitespace-pre-line"
         style="text-shadow: 0 1px 6px rgba(0,0,0,0.45)"
       >
         {{ config?.thankYouMessage2 }}
       </p>
       <p
-        class="font-display text-cream text-xl md:text-2xl p-4 drop-shadow-md whitespace-pre-line"
+        class="font-swei text-cream text-xl md:text-2xl p-4 drop-shadow-md whitespace-pre-line"
         style="text-shadow: 0 1px 6px rgba(0,0,0,0.45)"
       >
         {{ config?.thankYouMessage3 }}
@@ -58,12 +58,12 @@ onUnmounted(() => clearInterval(timer))
     <!-- Bottom-right: thankYouGreeting + countdown -->
     <div class="absolute bottom-10 right-8 md:bottom-14 md:right-14 text-right">
       <p
-        class="font-display text-cream text-2xl md:text-5xl drop-shadow-md"
+        class="font-swei text-cream text-3xl md:text-5xl drop-shadow-md"
         style="text-shadow: 0 1px 6px rgba(0,0,0,0.45)"
       >
         {{ config?.thankYouGreeting }}
       </p>
-      <p class="font-sans text-cream/70 text-xs tracking-widest mt-3 uppercase">
+      <p class="font-swei text-cream/70 text-sm tracking-widest mt-3 uppercase">
         {{ countdown }} 秒後返回首頁 or <RouterLink to="/" class="underline">立即返回</RouterLink>
       </p>
       <!-- countdown bar -->
