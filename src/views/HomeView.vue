@@ -13,7 +13,7 @@ const config = useWeddingConfig()
 <template>
   <!-- Hero -->
   <WdHero bg-url="./hero.jpg" :overlay-opacity="0.45">
-    <div class="flex flex-col items-center gap-6 text-cream text-center">
+    <div class="flex flex-col items-center gap-6 text-cream text-center mt-16">
       <p class="font-swei text-xs tracking-[0.4em] uppercase text-cream/70">We Invite You to Celebrate</p>
       <h1 class="font-chenYuluoyan text-8xl md:text-8xl tracking-wider leading-none">
         {{ config?.bridegroomTitle }}
@@ -23,7 +23,9 @@ const config = useWeddingConfig()
       <p class="font-swei text-lg tracking-[0.3em] text-cream/80 uppercase mt-2">
         {{ config?.dateZh }}
       </p>
-      <WdDivider ornament />
+      <div class="flex items-center">
+        <span class="text-champagne text-lg select-none">✦</span>
+      </div>
       <p class="font-swei text-lg text-cream/70">{{ config?.venue }} · {{ config?.city }}</p>
       <WdCountdown />
     </div>
