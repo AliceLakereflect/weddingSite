@@ -13,6 +13,9 @@ const router = createRouter({
     ...(features.gallery
       ? [{ path: '/gallery', component: () => import('@/views/GalleryView.vue') }]
       : []),
+    ...(features.weddingDayGallery
+      ? [{ path: '/wedding-day-gallery', component: () => import('@/views/WeddingDayGalleryView.vue') }]
+      : []),
     ...(features.rsvp
       ? [{ path: '/rsvp', component: () => import('@/views/RsvpView.vue') }]
       : []),

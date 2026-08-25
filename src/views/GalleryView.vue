@@ -20,7 +20,7 @@ const images = Object.keys(galleryFiles)
 <template>
   <div class="pt-16">
     <section class="section-wrapper">
-      <WdSectionTitle title="婚紗相簿" subtitle="Photo Gallery" center />
+      <WdSectionTitle title="婚紗照" subtitle="Photo Gallery" center />
       <div class="mt-10">
         <WdGalleryGrid :images="images" />
       </div>
