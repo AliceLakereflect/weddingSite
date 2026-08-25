@@ -1,6 +1,6 @@
 export const features = {
   ourStory: false,   // 我們的故事
-  gallery: false,    // 婚紗相簿
+  gallery: true,    // 婚紗相簿
   rsvp: true,       // RSVP 表單
 } as const
 
