@@ -12,7 +12,7 @@ const navLinks = [
   { to: '/', label: 'HOME' },
   ...(features.ourStory ? [{ to: '/story', label: '我們的故事' }] : []),
   ...(features.gallery ? [{ to: '/gallery', label: '婚紗照' }] : []),
-  ...(features.weddingDayGallery ? [{ to: '/wedding-day-gallery', label: '婚宴相簿' }] : []),
+  ...(features.weddingDayGallery ? [{ to: '/wedding-day-gallery', label: '婚宴花絮' }] : []),
   ...(features.rsvp ? [{ to: '/rsvp', label: 'RSVP' }] : []),
 ]
 

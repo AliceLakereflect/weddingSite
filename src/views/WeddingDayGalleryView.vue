@@ -37,6 +37,19 @@ function parseCreatedAt(value: string | null) {
   return Number.isNaN(time) ? 0 : time
 }
 
+function isDisplayableImageObject(name: string) {
+  if (!name || name.endsWith('/')) {
+    return false
+  }
+
+  // Ignore hidden/placeholder objects like .emptyFolderPlaceholder.
+  if (name.startsWith('.')) {
+    return false
+  }
+
+  return /\.(avif|bmp|gif|heic|heif|jpe?g|png|svg|webp)$/i.test(name)
+}
+
 async function loadGalleryImages() {
   uploadError.value = ''
 
@@ -64,7 +77,7 @@ async function loadGalleryImages() {
   }
 
   uploadedImages.value = data
-    .filter((item) => !item.name.endsWith('/'))
+    .filter((item) => isDisplayableImageObject(item.name))
     .map((item) => {
       const { data: publicUrlData } = client.storage.from(BUCKET_NAME).getPublicUrl(item.name)
 
@@ -154,7 +167,7 @@ onMounted(() => {
 <template>
   <div class="pt-16">
     <section class="section-wrapper">
-      <WdSectionTitle title="婚宴相簿" subtitle="Wedding Day Gallery" center />
+      <WdSectionTitle title="婚宴花絮" subtitle="Wedding Day Gallery" center />
 
       <div class="mt-8 border border-wood-100 bg-wood-50 p-5 md:p-7">
         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
