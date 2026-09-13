@@ -6,12 +6,12 @@ const videos = [
   {
     title: '我們的相遇',
     subtitle: 'Where our Story Began',
-    url: 'https://youtu.be/5m01W3PvQ60?si=hJKE79m2_3m83g2r',
+    url: 'https://youtu.be/pkf-Sa96mYE',
   },
   {
     title: '滿滿的祝福',
     subtitle: 'Filled with love and blessings',
-    url: 'https://youtu.be/YOKwaIlurl8?si=T1FZYxHZxfVChbQ2',
+    url: 'https://youtu.be/zYdciBLzNkc',
   },
 ]
 
