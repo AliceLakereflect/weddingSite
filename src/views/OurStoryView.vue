@@ -2,23 +2,30 @@
 import WdSectionTitle from '@/components/WdSectionTitle.vue'
 import WdDivider from '@/components/WdDivider.vue'
 
-const timeline = [
+const videos = [
   {
-    year: '相遇',
-    title: '緣起',
-    desc: '在最對的時間，遇見了最對的人。兩顆心，因為一個偶然，悄悄地靠近。',
+    title: '我們的相遇',
+    subtitle: 'Where our Story Began',
+    url: 'https://youtu.be/5m01W3PvQ60?si=hJKE79m2_3m83g2r',
   },
   {
-    year: '相知',
-    title: '走進彼此',
-    desc: '從陌生到熟悉，從朋友到戀人，每一步都走得踏實而溫暖。',
-  },
-  {
-    year: '相守',
-    title: '許下承諾',
-    desc: '民國115年10月10日，我們在牛耳藝術渡假村，當著所有親友的面，許下一輩子的承諾。',
+    title: '滿滿的祝福',
+    subtitle: 'Filled with love and blessings',
+    url: 'https://youtu.be/YOKwaIlurl8?si=T1FZYxHZxfVChbQ2',
   },
 ]
+
+function getEmbedUrl(rawUrl: string) {
+  if (!rawUrl) return ''
+
+  const match = rawUrl.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([A-Za-z0-9_-]{11})/)
+
+  if (match?.[1]) {
+    return `https://www.youtube.com/embed/${match[1]}?rel=0`
+  }
+
+  return rawUrl
+}
 </script>
 
 <template>
@@ -26,28 +33,43 @@ const timeline = [
     <section class="section-wrapper">
       <WdSectionTitle title="我們的故事" subtitle="Our Story" center />
 
-      <div class="mt-16 space-y-16">
-        <!-- Timeline item -->
-        <div
-          v-for="(item, i) in timeline"
-          :key="i"
-          class="flex flex-col md:flex-row gap-8 items-start"
-          :class="i % 2 === 1 ? 'md:flex-row-reverse' : ''"
-        >
-          <div class="flex-1 flex flex-col items-center md:items-end" :class="i % 2 === 1 ? 'md:items-start' : ''">
-            <span class="font-swei text-xs text-gold tracking-widest uppercase mb-2">{{ item.year }}</span>
-            <h3 class="font-display text-2xl text-charcoal">{{ item.title }}</h3>
-            <p class="mt-3 font-serif text-sm text-wood-600 leading-relaxed max-w-xs" :class="i % 2 === 1 ? 'md:text-left' : 'md:text-right'">
-              {{ item.desc }}
-            </p>
-          </div>
-          <div class="hidden md:flex flex-col items-center">
-            <div class="w-px flex-1 bg-wood-200" />
-            <div class="w-3 h-3 rounded-full border-2 border-gold bg-cream my-2" />
-            <div class="w-px flex-1 bg-wood-200" />
-          </div>
-          <div class="flex-1 bg-wood-50 aspect-video flex items-center justify-center">
-            <span class="text-wood-200 text-5xl select-none">✦</span>
+      <div class="mt-20">
+        <div class="mb-8 text-center">
+          <p class="font-swei text-xs text-gold tracking-[0.28em] uppercase">Memory Clip</p>
+        </div>
+
+        <div class="grid gap-8 md:grid-cols-2">
+          <div v-for="(video, index) in videos" :key="video.title" class="space-y-4">
+            <div class="text-center">
+              <h3 class="font-display text-2xl text-charcoal">{{ video.title }}</h3>
+              <p class="mt-2 font-swei text-[11px] text-wood-500 tracking-[0.2em] uppercase">{{ video.subtitle }}</p>
+            </div>
+
+            <div
+              v-if="getEmbedUrl(video.url)"
+              class="overflow-hidden rounded-2xl border border-wood-100 bg-wood-50 shadow-[0_20px_45px_rgba(88,68,52,0.08)]"
+            >
+              <iframe
+                class="aspect-video w-full"
+                :src="getEmbedUrl(video.url)"
+                title="YouTube video player"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              />
+            </div>
+
+            <div
+              v-else
+              class="aspect-video rounded-2xl border border-dashed border-wood-200 bg-wood-50 flex items-center justify-center text-center px-6"
+            >
+              <div>
+                <p class="font-swei text-sm text-wood-500 tracking-[0.2em] uppercase">Video coming soon</p>
+                <p class="mt-3 font-serif text-sm text-wood-600">
+                  請把第 {{ index + 1 }} 個 YouTube 連結貼進去，頁面就會自動嵌入。
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
