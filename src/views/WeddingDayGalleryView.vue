@@ -65,7 +65,7 @@ async function loadGalleryImages() {
     .from(BUCKET_NAME)
     .list('', {
       limit: 200,
-      sortBy: { column: 'name', order: 'desc' },
+      sortBy: { column: 'created_at', order: 'desc' },
     })
 
   isLoading.value = false
