@@ -12,14 +12,18 @@ interface GalleryImage {
 
 const MAX_FILE_SIZE = 5
 const BUCKET_NAME = 'wedding-day-gallery'
+const PAGE_SIZE = 200
 
 const uploadedImages = ref<GalleryImage[]>([])
 const uploadError = ref('')
 const uploadSuccess = ref('')
 const isUploading = ref(false)
 const isLoading = ref(false)
+const currentPage = ref(1)
 
 const canUpload = computed(() => hasSupabaseConfig)
+
+const totalPages = computed(() => Math.max(1, Math.ceil(uploadedImages.value.length / PAGE_SIZE)))
 
 const images = computed(() =>
   uploadedImages.value
@@ -27,6 +31,11 @@ const images = computed(() =>
     .sort((a, b) => b.uploadedAt - a.uploadedAt)
     .map(({ src, alt }) => ({ src, alt })),
 )
+
+const visibleImages = computed(() => {
+  const start = (currentPage.value - 1) * PAGE_SIZE
+  return images.value.slice(start, start + PAGE_SIZE)
+})
 
 function parseCreatedAt(value: string | null) {
   if (!value) {
@@ -55,38 +64,83 @@ async function loadGalleryImages() {
 
   if (!supabase) {
     uploadedImages.value = []
+    currentPage.value = 1
     return
   }
 
   const client = supabase
 
   isLoading.value = true
-  const { data, error } = await client.storage
-    .from(BUCKET_NAME)
-    .list('', {
-      limit: 200,
-      sortBy: { column: 'created_at', order: 'desc' },
-    })
 
-  isLoading.value = false
+  try {
+    const accumulated: Array<{ name: string; created_at: string | null }> = []
+    let offset = 0
 
-  if (error) {
+    while (true) {
+      const { data, error } = await client.storage.from(BUCKET_NAME).list('', {
+        limit: PAGE_SIZE,
+        offset,
+        sortBy: { column: 'created_at', order: 'desc' },
+      })
+
+      if (error) {
+        throw error
+      }
+
+      if (!data || data.length === 0) {
+        break
+      }
+
+      accumulated.push(...data)
+
+      if (data.length < PAGE_SIZE) {
+        break
+      }
+
+      offset += PAGE_SIZE
+    }
+
+    uploadedImages.value = accumulated
+      .filter((item) => isDisplayableImageObject(item.name))
+      .map((item) => {
+        const { data: publicUrlData } = client.storage.from(BUCKET_NAME).getPublicUrl(item.name)
+
+        return {
+          src: publicUrlData.publicUrl,
+          alt: fileNameToAlt(item.name),
+          uploadedAt: parseCreatedAt(item.created_at),
+        }
+      })
+      .sort((a, b) => sortByUploadTimeDesc(a.uploadedAt, b.uploadedAt))
+
+    if (currentPage.value > totalPages.value) {
+      currentPage.value = totalPages.value
+    }
+  } catch (error) {
     uploadError.value = '讀取相簿失敗，請確認 Supabase bucket 與權限設定。'
     uploadedImages.value = []
+    currentPage.value = 1
+  } finally {
+    isLoading.value = false
+  }
+}
+
+function sortByUploadTimeDesc(a: number, b: number) {
+  return b - a
+}
+
+function goToPage(page: number) {
+  if (page < 1) {
+    currentPage.value = 1
     return
   }
 
-  uploadedImages.value = data
-    .filter((item) => isDisplayableImageObject(item.name))
-    .map((item) => {
-      const { data: publicUrlData } = client.storage.from(BUCKET_NAME).getPublicUrl(item.name)
+  if (page > totalPages.value) {
+    currentPage.value = totalPages.value
+    return
+  }
 
-      return {
-        src: publicUrlData.publicUrl,
-        alt: fileNameToAlt(item.name),
-        uploadedAt: parseCreatedAt(item.created_at),
-      }
-    })
+  currentPage.value = page
 }
 
 function fileNameToAlt(name: string) {
@@ -210,7 +264,31 @@ onMounted(() => {
       </div>
 
       <div class="mt-10">
-        <WdGalleryGrid :images="images" />
+        <WdGalleryGrid :images="visibleImages" />
+      </div>
+
+      <div v-if="images.length > PAGE_SIZE" class="mt-8 flex items-center justify-center gap-2 text-sm text-wood-600">
+        <button
+          type="button"
+          class="min-w-9 border border-wood-300 px-2 py-1 disabled:opacity-40"
+          :disabled="currentPage === 1"
+          @click="goToPage(currentPage - 1)"
+        >
+          上一頁
+        </button>
+
+        <span class="px-2 font-swei tracking-wide">
+          {{ currentPage }} / {{ totalPages }}
+        </span>
+
+        <button
+          type="button"
+          class="min-w-9 border border-wood-300 px-2 py-1 disabled:opacity-40"
+          :disabled="currentPage >= totalPages"
+          @click="goToPage(currentPage + 1)"
+        >
+          下一頁
+        </button>
       </div>
     </section>
   </div>
