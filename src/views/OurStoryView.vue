@@ -17,6 +17,11 @@ const videos = [
     title: 'SDE',
     subtitle: 'SDE',
     url: 'https://youtu.be/yQqPb9SVVCg',
+  },
+  {
+    title: '牛耳宴客佈置',
+    subtitle: 'Banquet setup',
+    url: 'https://youtube.com/shorts/2xaEsPMT82I?feature=share',
   }
 ]
 
