@@ -19,7 +19,7 @@ interface GalleryImage {
   category: PhotoCategory
 }
 
-const MAX_FILE_SIZE = 5
+const MAX_FILE_SIZE = 25
 const BUCKET_NAME = 'wedding-day-gallery'
 const PAGE_SIZE = 32
 
