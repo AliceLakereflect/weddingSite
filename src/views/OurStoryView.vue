@@ -13,6 +13,11 @@ const videos = [
     subtitle: 'Filled with love and blessings',
     url: 'https://youtu.be/zYdciBLzNkc',
   },
+  {
+    title: 'SDE',
+    subtitle: 'SDE',
+    url: 'https://youtu.be/yQqPb9SVVCg',
+  }
 ]
 
 function getEmbedUrl(rawUrl: string) {
