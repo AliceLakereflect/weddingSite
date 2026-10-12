@@ -2,7 +2,14 @@
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 
 const props = defineProps<{
-  images?: { src: string; alt: string }[]
+  images?: Array<{ id?: string; storagePath?: string; src: string; alt: string; category?: string }>
+  categoryOptions?: string[]
+  allowCategoryEdit?: boolean
+  categoryUpdatingPaths?: string[]
+}>()
+
+const emit = defineEmits<{
+  (event: 'set-category', payload: { id?: string; storagePath?: string; category: string }): void
 }>()
 
 const imageItems = ref<(HTMLElement | null)[]>([])
@@ -15,7 +22,42 @@ const selectedImage = computed(() => {
 
   return props.images[selectedIndex.value] ?? null
 })
+const categoryUpdatingSet = computed(() => new Set(props.categoryUpdatingPaths ?? []))
 let observer: IntersectionObserver | null = null
+
+function isCategoryUpdating(image: { id?: string; storagePath?: string }) {
+  const identity = image.storagePath || image.id
+  return identity ? categoryUpdatingSet.value.has(identity) : false
+}
+
+function imageIdentityKey(image: { id?: string; storagePath?: string; src: string }, index: number) {
+  return image.storagePath || image.id || image.src || `image-${index}`
+}
+
+function hasSameImageStructure(
+  currentImages: Array<{ id?: string; storagePath?: string; src: string }> | undefined,
+  previousImages: Array<{ id?: string; storagePath?: string; src: string }> | undefined,
+) {
+  if (!currentImages && !previousImages) {
+    return true
+  }
+
+  if (!currentImages || !previousImages) {
+    return false
+  }
+
+  if (currentImages.length !== previousImages.length) {
+    return false
+  }
+
+  for (let index = 0; index < currentImages.length; index += 1) {
+    if (imageIdentityKey(currentImages[index], index) !== imageIdentityKey(previousImages[index], index)) {
+      return false
+    }
+  }
+
+  return true
+}
 
 function markVisible(index: number) {
   if (visibleIndexes.value.has(index)) {
@@ -123,8 +165,12 @@ function handleKeydown(event: KeyboardEvent) {
 
 watch(
   () => props.images,
-  async () => {
-    visibleIndexes.value = new Set()
+  async (currentImages, previousImages) => {
+    const shouldResetVisibility = !hasSameImageStructure(currentImages, previousImages)
+    if (shouldResetVisibility) {
+      visibleIndexes.value = new Set()
+    }
+
     await nextTick()
     observeImages()
   },
@@ -155,7 +201,7 @@ onBeforeUnmount(() => {
     <template v-if="images && images.length > 0">
       <div
         v-for="(img, i) in images"
-        :key="i"
+        :key="imageIdentityKey(img, i)"
         :ref="(el) => setImageItemRef(i, el)"
         :data-index="i"
         class="relative aspect-square overflow-hidden group cursor-pointer"
@@ -176,6 +222,29 @@ onBeforeUnmount(() => {
         />
         <div v-else class="w-full h-full bg-wood-100 animate-pulse" />
         <div class="absolute inset-0 bg-charcoal opacity-0 group-hover:opacity-20 transition-opacity duration-300" />
+
+        <div class="absolute inset-x-2 bottom-2 z-10">
+          <select
+            v-if="allowCategoryEdit && categoryOptions && categoryOptions.length > 0"
+            :value="img.category ?? '其他'"
+            :disabled="isCategoryUpdating(img)"
+            class="w-full appearance-none rounded-full border border-white/70 bg-charcoal/65 px-2 py-1 pr-7 text-[10px] font-swei tracking-[0.12em] text-cream shadow-sm outline-none disabled:opacity-80"
+            @click.stop
+            @change="emit('set-category', { id: img.id, storagePath: img.storagePath, category: ($event.target as HTMLSelectElement).value })"
+          >
+            <option v-for="option in categoryOptions" :key="option" :value="option">
+              {{ option }}
+            </option>
+          </select>
+
+          <span
+            v-if="isCategoryUpdating(img)"
+            class="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+            aria-hidden="true"
+          >
+            <span class="block h-3.5 w-3.5 animate-spin rounded-full border border-cream/40 border-t-cream" />
+          </span>
+        </div>
       </div>
     </template>
     <!-- Placeholder grid when no images -->
@@ -232,9 +301,26 @@ onBeforeUnmount(() => {
         ›
       </button>
 
+      <div class="absolute bottom-4 left-1/2 -translate-x-1/2 w-[min(90vw,440px)]">
+        <div class="flex flex-wrap items-center justify-center gap-2 rounded-full bg-charcoal/60 px-3 py-2 backdrop-blur-sm">
+          <template v-if="allowCategoryEdit">
+            <button
+              v-for="option in categoryOptions ?? ['其他']"
+              :key="option"
+              type="button"
+              class="rounded-full border px-3 py-1 text-[10px] font-swei tracking-[0.12em] transition-colors"
+              :class="(selectedImage?.category ?? '其他') === option ? 'border-gold bg-gold/20 text-cream' : 'border-white/30 bg-transparent text-cream/80 hover:border-gold/70'"
+              @click.stop="emit('set-category', { id: selectedImage?.id, storagePath: selectedImage?.storagePath, category: option })"
+            >
+              {{ option }}
+            </button>
+          </template>
+        </div>
+      </div>
+
       <p
         v-if="selectedIndex !== null && images && images.length > 1"
-        class="absolute bottom-4 md:bottom-6 text-cream/80 font-swei text-xs tracking-[0.2em]"
+        class="absolute bottom-20 md:bottom-24 text-cream/80 font-swei text-xs tracking-[0.2em]"
       >
         {{ selectedIndex + 1 }} / {{ images.length }}
       </p>
