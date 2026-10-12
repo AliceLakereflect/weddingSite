@@ -21,7 +21,7 @@ interface GalleryImage {
 
 const MAX_FILE_SIZE = 25
 const BUCKET_NAME = 'wedding-day-gallery'
-const PAGE_SIZE = 32
+const PAGE_SIZE = 20
 
 const uploadedImages = ref<GalleryImage[]>([])
 const uploadError = ref('')
